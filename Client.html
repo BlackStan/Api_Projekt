@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            margin: 0 auto;
+        }
+
+        h1{
+            background-color: aqua;
+            text-align: center;
+        }
+
+        table{
+            margin-top: 60px;
+            border: 1px solid black;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        table td{
+            width: 150px;
+        }
+
+        table thead{
+            background-color: aqua;
+        }
+
+        table tbody tr:nth-child(even){
+            background-color: whitesmoke;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Tierliste</h1>
+
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Rasse</th>
+        </thead>
+        <tbody>
+            <tr id="tr-1">
+                <td id="td-1"></td>
+                <td id="td-2"></td>
+                <td id="td-3"></td>
+            </tr>
+            <tr id="tr-2">
+                <td id="td-1"></td>
+                <td id="td-2"></td>
+                <td id="td-3"></td>
+            </tr>
+            <tr id="tr-3">
+                <td id="td-1"></td>
+                <td id="td-2"></td>
+                <td id="td-3"></td>
+            </tr>
+            <tr id="tr-4">
+                <td id="td-1"></td>
+                <td id="td-2"></td>
+                <td id="td-3"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <script src="/Client.js"></script>
+</body>
+</html>
