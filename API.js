@@ -4,7 +4,7 @@ const cors = require("cors")
 
 const app = express();
 app.use(cors())
-let haustiere = [
+var haustiere = [
     {
         id: 1,
         name: "bubi",
@@ -33,12 +33,13 @@ app.get('/list',(req, res) =>{
 })
 
 app.get('/get/:id', (req, res) => {
+    var ItemId = parseInt(req.params.id);
+    const hausTier = haustiere.filter(item =>{
+        return item.id == ItemId
+    })
 
-    if(req.params.id != "1") return res.send("Diese Liste existiert nicht");
-    else{
-        res.json(haustiere[0])
-        res.end()
-    }
+    res.json(hausTier)
+    res.end();
 })
 
 
