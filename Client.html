@@ -36,6 +36,11 @@
             background-color: whitesmoke;
         }
 
+        #formular{
+            margin-top: 50px;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -51,7 +56,14 @@
  
         </tbody>
     </table>
-    
+
+    <Div id="formular">
+        <form action="http://localhost:8080/eintrag" method="post">
+        <input name="Tiername" type="text"  placeholder="Name">
+        <input name="Rasse" type="text" placeholder="Rasse">
+        <button type="submit">Hinzufügen</button>
+        </form>
+    </Div>
     <script src="/Client.js"></script>
 </body>
 </html>
