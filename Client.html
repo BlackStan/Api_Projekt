@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="/API.js"></script>
     <title>Client</title>
     <style>
         *{
@@ -48,9 +50,11 @@
 
     <table>
         <thead>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Rasse</th>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Rasse</th>
+            </tr> 
         </thead>
         <tbody>
  
@@ -58,11 +62,13 @@
     </table>
 
     <Div id="formular">
-        <form action="http://localhost:8080/eintrag" method="post">
-        <input name="Tiername" type="text"  placeholder="Name">
-        <input name="Rasse" type="text" placeholder="Rasse">
-        <button type="submit">Hinzufügen</button>
+        <form id="form" onsubmit="perxhrsenden(); return false">
+            <!-- <form action="http://localhost:8080/eintrag" method="post">  -->
+            <input id="_name" name="Tiername" type="text"  placeholder="Name">
+            <input id="_rasse" name="Rasse" type="text" placeholder="Rasse">
+            <button type="submit" onclick="reloadData()">Hinzufügen</button>
         </form>
+        <button onclick="reloadData()">Aktualisieren</button>
     </Div>
     <script src="/Client.js"></script>
 </body>

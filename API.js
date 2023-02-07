@@ -1,7 +1,7 @@
-const http = require('http');
+const http = require('http')
 const express = require('express')
 const cors = require("cors")
-const mysql = require("mysql2")
+const mysql = require("mysql2");
 
 const pool = mysql.createPool({
     host: "localhost",
@@ -13,20 +13,20 @@ const pool = mysql.createPool({
 const db = pool.promise();
 var haustiere = []
 
-
-
 function datenBankLesen(){
     db.execute('Select * From Haustiere').then(result => {
-        console.log(result[0].length)                              //Für mich um ergebnise in der Konsole zu
+        //console.log(result[0].length)                              //Für mich um ergebnise in der Konsole zu
     
         for(let i = 0; i < result[0].length; i++){
             haustiere[i] = result[0][i];
-            console.log(haustiere[i]);
+           // console.log(haustiere[i]);
         }
     });
 }
 
-datenBankLesen();
+
+
+setInterval(datenBankLesen, 200);
 
 const app = express();
 app.use(cors())
@@ -48,33 +48,37 @@ app.get('/get/:id', (req, res) => {
     res.end();
 });
 
+app.post('/eintrag', (req, res) =>{
 
+    const eingabe = [];
 
-app.post('/eintrag', (req, res) => {
+    req.on("data", (chunk) =>{
+        eingabe.push(chunk);
+    })
 
-    const eingabe = []; //Array um die Chunks zu empfangen
-    
-    req.on('data', (chunk) =>{      //Die abgeschickten werden als hexadezimal Stück für Stück geladen
-        eingabe.push(chunk);        //und in die eingabe als Array gelegt
-        console.log("Request Succesed")
-    });
+    req.on("end", () =>{
+        const parsed = Buffer.concat(eingabe).toString();
+        const splitEingabe = parsed.split(',');
 
-    req.on('end', () =>{            //Wenn die Daten vollständig empfangen wurden
-        const parsed = Buffer.concat(eingabe).toString();       //wird das Array zusammen geführt und in ein String umgewandelt
-        const splitParsed = parsed.split('&');                  //Array wird bei & gesplitet
-        const tierName = splitParsed[0].split('=')[1];          //Erneut bei = gesplittet und die Werte laden
-        const tierRasse = splitParsed[1].split('=')[1];
-
-        res.statusCode = 302;           
-        res.writeHead(301,{
-            Location: 'http://127.0.0.1:5500/Client.html'
-        }).end()
-
-        db.execute('INSERT INTO Haustiere (_name, _rasse) Values (?, ?)', [tierName, tierRasse]); //Der datenbank hinzufügen
+        db.execute('INSERT INTO Haustiere (_name, _rasse) Values (?, ?)', [splitEingabe[0], splitEingabe[1]]);
         datenBankLesen();
     })
+
 });
 
+function perxhrsenden(){
+    console.log("Klappt");
+    
+    var name = $('#_name').val()
+    var rasse = $('#_rasse').val();
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:8080/eintrag");
+
+    const data = [name, rasse]
+    console.log(data);
+    xhr.send(data);
+}
 
 const server = http.createServer(app)
 

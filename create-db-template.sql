@@ -14,3 +14,4 @@ INSERT INTO Haustiere (_name, _rasse) VALUES ('blaubi', 'Hund');
 INSERT INTO Haustiere (_name, _rasse) VALUES ('baubi', 'Papagei');
 INSERT Into Haustiere (_name, _rasse) VALUES ("Bella", "Hund");
 
+ALTER Table Haustiere AUTO_INCREMENT = 1;

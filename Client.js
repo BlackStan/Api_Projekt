@@ -8,13 +8,16 @@
 
 var spalte = [];
 var zeile = [];
+var table = [];
 
-fetch('http://localhost:8080/list') //API Abfragen
+function loadData(){
+    fetch('http://localhost:8080/list') //API Abfragen
 .then(response => response.json()) //Antwort in Json extrahieren
 .then(json => {                     //Json-daten in Tabelle eintragen
+
     for(let i = 0; i < json.length; i++){
 
-        console.log(json[i])
+        //console.log(json[i])
         var reihe = i +1;
 
         zeile[i] = document.createElement("tr");
@@ -31,11 +34,20 @@ fetch('http://localhost:8080/list') //API Abfragen
         spalte[0].innerText = json[i]._id;
         spalte[1].innerText = json[i]._name;
         spalte[2].innerText = json[i]._rasse;
-            
+
     }
 })
 .catch(error => {
     console.log(error)
 });
+}
 
+loadData();
 
+const reloadData = () =>{
+    for(let i = 0; i < zeile.length; i++){
+        table[i] = zeile[i];
+        table[i].remove()
+    } 
+    loadData();
+}
